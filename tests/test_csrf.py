@@ -2,7 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2015-2024 CERN.
-# Copyright (C) 2024 Graz University of Technology.
+# Copyright (C) 2024-2025 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -381,7 +381,7 @@ def test_csrf_bad_referer(csrf_app, csrf):
 
         cookie = client.get_cookie(CSRF_COOKIE_NAME)
 
-        csrf_app.config["APP_ALLOWED_HOSTS"] = ["allowed-referer"]
+        csrf_app.config["TRUSTED_HOSTS"] = ["allowed-referer"]
         not_allowed_referer = "https://not-allowed-referer"
         res = client.post(
             "/csrf-protected",

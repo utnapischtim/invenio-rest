@@ -3,7 +3,7 @@
 # This file is part of Invenio.
 # Copyright (C) 2020 CERN.
 # Copyright (C) 2022 Northwestern University.
-# Copyright (C) 2023-2024 Graz University of Technology.
+# Copyright (C) 2023-2025 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -167,7 +167,7 @@ def csrf_validate():
             return _abort400(REASON_INSECURE_REFERER)
 
         is_hostname_allowed = referer.hostname in current_app.config.get(
-            "APP_ALLOWED_HOSTS"
+            "TRUSTED_HOSTS"
         )
         if not is_hostname_allowed:
             reason = REASON_BAD_REFERER % referer.geturl()
