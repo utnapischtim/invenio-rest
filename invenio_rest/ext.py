@@ -9,11 +9,11 @@
 
 """REST API module for Invenio."""
 
-from __future__ import absolute_import, print_function
 
-import warnings
+from flask_cors import CORS
 
 from . import config
+from .csrf import csrf
 from .views import create_api_errorhandler
 
 
@@ -39,22 +39,12 @@ class InvenioREST(object):
 
         # Enable CORS support if desired
         if app.config["REST_ENABLE_CORS"]:
-            from flask_cors import CORS
-
-            CORS(app)
             # CORS can be configured using CORS_* configuration variables.
+            CORS(app)
 
         # Enable CSRF support if desired
         if app.config["REST_CSRF_ENABLED"]:
-            from .csrf import csrf
-
             csrf.init_app(app)
-        else:
-            warnings.warn(
-                "CSRF validation will be enabled by default in the version" " 1.3.x",
-                category=FutureWarning,
-                stacklevel=2,
-            )
 
         app.errorhandler(400)(
             create_api_errorhandler(status=400, message="Bad Request")
